@@ -47,7 +47,7 @@ a) front-end
       ->function for this module can be found in Question1 Controller.
       -> all the request declare inside  $a for variable A , $b for variable B, and $c for variable C
       ->below is structure of the function
-      ````````````````````````````````````
+      `````````````````````````````````````````````````````````````````
       public function getresult(Request $request)
     {
         $a= $request->var_a;
@@ -73,142 +73,85 @@ a) front-end
         return response()->json(['result' => $string]);
     }
 }
-      ````````````````````````````````````
-      ->$range is range of alphabet ,we use this variable as a indicator to loop the process
-      ->$step is variable that we use as a started and the end point of the looping process. It value also will be use to devide by the   variable $a  and this will determine whether the remainder is 0 or higher.
-      -> if the remainder is 0 then we replace  $t with a string/alphabet  to it current position of $string starting from A-Z.
+      ```````````````````````````````````````````````````````````````````
+       ->$range is range of alphabet ,we use this variable as a indicator to loop the process
+       ->$step is variable that we use as a started and the end point of the looping process.this value also will be use to devide by            the variable of $a  and this will determine whether the remainder is 0 or higher.
+       -> if the remainder is 0 then we replace  $t with a string/alphabet  to it current position of $string starting from A-Z.
       
        ->if the remainder is higher than 0 then we put $step value which is number into  it current position of $string.
        ->lastly we will return the result in json format  back to the front-end.
-     
+  ----------------------------------------------------------------------------------------------------------------------------------     
+       ### Question 2 Technical explanation
+       
+       below are the explanation of how the sample code for the question 2 work 
+       a) front -end
+         ->for the front-end part I provide a scalable input fields which giving an option for user add the details as many as they               want.
+         ->below is the example of sample code that make add input field feature work
+       ``````````````````````````````````````````````````````````````````````````````````````
+        $(function() {
+        var scntDiv = $('#populate');
+         i = $('#populate').find('#blue').size() + 1;
 
-3) Pass the initial_state to the reducer function arguments. Make sure also pass an action argument to accept action from dispatch function ie:
+        $("#addScnt").click(function(){
+            $('<div id='+i+' class="row justify-content-md-center">' +
 
-````
-      const Reducer = (state = INITIAL_STATE, action) => {
+            '<div class="col-2"> ' +
+                '<label for="exampleFormControlInput1">Name User '+i+'</label> ' +
+                '<input class="form-control" id="var_a" name="name[]" type="text"  id="exampleFormControlInput1" placeholder="name@example.com">' +
+                 '</div>' +
+                 '<div class="col-1">' +
+                 '<label for="exampleFormControlInput1">Age</label> ' +
+                    '<input class="form-control" id="var_b" name="age[]" type="text"  id="exampleFormControlInput1" placeholder="name@example.com">').appendTo(scntDiv);
+                     i++;
+            return false;
+        });
+    });
+       
+       ````````````````````````````````````````````````````````````````````````````````````````
+     -> var i is global variable that use to access in " $("#addScnt").click(function()" as to indicate users index
+      ->once the users click #addScnt div then this function will execute and append a new fields inside #populate div.
+      ->if the user want to remove additional field that already has been add .users can click  remove button and this will heat function rem(s) and this will remove selected field.
+      `````````````````````````````````````````````````````````````````````````````````````````````
+       function rem(s){
+
+            $('#'+s).remove();
+            i--;
 
     }
-````
+    ````````````````````````````````````````````````````````````````````````````````````````````````
+      -> everytime when the user click the button remove, user index will decrease by one. so this will give a true a number of how many input does the user typein.
+         
+         b)Back end
+         ->for the back end part I used the the number of name to loop the process since the number of name can be represent an index               of array for each users .
+         ->hence everytime the loop is running then  $name index can be use to accees another array . in this case i use the NAME index            to find corelated age.
+       
+         
+         ````````````````````````````````````````````````````````````````````````````````````````````````
+          public function getresult(Request $request)
+    {
 
-4) Inside the reducer function block, define what you want the reducer to happen. You will most likely to work with object.Assign() function. Ie:
+        $name = $request->input('name');
+        $age = $request->input('age');
+        $key = $request->input('key');
+        $country = $request->input('country');
+        $state = $request->input('state');
 
-````
-      const Reducer = (state = INITIAL_STATE, action) => {
-          switch(action) {
-            case "REDUCER_UPDATE_A": {
-                Object.assign({}, state, {a: "Hello World!"})
-          }
-            case "REDUCER_UPDATE_B": {
-                Object.assign({}, state, {b: {f: "New", g: "Day today"}})
-          }
-        }  
+       $i=0;
+        foreach($name as $index => $input) {
+
+                $user[] = array('name' => $input, 'age' => $age[$index], 'key' => array_slice($key,$i,3));
+           $i+=3;
+        }
+        foreach($country as $index => $input) {
+            $address[] = array('country' => $input, 'state' => $state[$index]);
+        }
+        return response()->json(['user'=>$user,'address'=>$address]);
     }
-````
+}
+         ``````````````````````````````````````````````````````````````````````````````````````````````````````
+           ->to find the value of the 'key' I used  'array_slice' function  to select particular key array .for in this case
+           i use an $i as a starting point of the selected array that i would like to cut then i put '3' as a how many position that i             would like to take into an array. i choose 3 because we have maximum 3 input box for key ,if we have more than 3 then we               can put more than that. 
+           ->I use the same method to structure country and state array.in these case i use country to loop and  use the index to                    access another array.
+           ->once everything is done then we retrun  user and address array in json format.
+      
 
-5) Export reducer. Ie:
-
-````
-        export default Reducer;
-````
-
-### Styling
-
-Theres two types of styling you can implement. Also, there is two types of components which is `smart components` and `dumb components` that can implement those styles. Make sure you know what are those components before editting since I wont cover that part in this Documentation.
-First, for `smart components`, use this:
-- let say you have `<Card/>` components, use `className={classes.styleObject}` to implement styling.
-  - `className` is JSX attribute that accept class name.
-  - `classes` is created above before `render()` is called. Usually it is called like this `const { classes } = this.props`.
-  - `styleObject` is from jss object. It is stored from `assets/jss/views/...`. Make sure you import the style object from the jss folder.
-  - Apply the jss accordingly.
-
-Secondly, for `dumb components`, use this:
-- As we know, dumb components is not built on class definition, hence it wont inherit class functions like `this` and others. What you can do is:
-  - Create `classes` from props: `const { classes } = props`
-  - Import the jss folder needed for the file styles.
-  - Now, instead of inserting `classes` in `className` tag, put it inside `style` tag. If you insert the jss in `className`, it wont work since it just bring the name of the Object from jss. You can try `console.log()`
-  - Instead of doing `classes.styleObject`, do this instead `styleImport.styleObject` at the `style={}` tag.
-  - Now, the css will be implemented
-
-## Back-End(Still in progress)
-For back-end, it requires several tables.
-- `auth`
-- `user` -> `Client` and `Admin`
-- `client_feedback`
-- `client_list`
-- `meetings`
-- `upload` and `uploaded_letter`
-- `bill_statements`
-
-## Relationship
-| User           | Type           |
-| :------------- | :------------- |
-| Client         | User One       |
-| Admin          | User Two       |
-
-`client_feedback` belongs to `user`, `user` has many `client_feedback`
-`client_list` belongs to `user`, `user` has many `client_list`
-`meetings` belongs to `user`, `user` has many `meetings`
-`upload` belongs to `client_list`, `client_list` has many `upload`
-`bill_statements` belongs to `client_list`, `client_list` has many `bill_statements`
-
-## Tables
-Auth:
-- `userId` -> id
-- `token` -> String
-- `tokenExpiration` -> Number
-
-User:  
-- `id` -> id
-- `name` -> String
-- `email` -> String
-- `password` -> String
-- `companyName` -> String
-- `phoneNo` -> String
-- `isAdmin` -> Boolean
-
-Content:
-- `companyLogo` -> URL to S3
-- `facebook` -> String/URL
-- `instagram` -> String/URL
-- `globe` -> String/URL
-- `startDate` -> Date
-- `endDate` -> Date
-- `infographic` -> Number, not Float, not Double, with limit
-- `video` -> URL
-- `about` -> String
-- `product` -> String
-- `user` -> Id (Relate back to User)
-- `months` -> Object from Month
-- `weeks` -> Object from Week
-- `collaterals` -> Object from Collateral
-- `documents` -> Object from Document
-
-Month:
-- `monthName` -> String
-- `monthDescription` -> String
-- `user` -> Id (Relate back to User)
-- `isProgress` -> Boolean or Number (onGoing, onHold, etc)
-
-Week:
-- `weekName` -> String
-- `weekDesciption` -> String
-- `user` -> Id (Relate back to User)
-
-Collateral:
-- `collateralName` -> String
-- `collateralDescription` -> String
-- `copywriting` -> Boolean
-- `content` -> Boolean
-- `creative` -> Boolean
-- `isPosted` -> Boolean(posted: true, in progress: false)
-- `user` -> Id (Relate back to User)
-
-Document:
-- `docId` -> Id
-- `docName` -> String
-- `docDescription` -> String
-- `docFiles` -> Files to S3
-
-Report:
-
-Finance:
