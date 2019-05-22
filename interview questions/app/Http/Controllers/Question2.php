@@ -20,7 +20,7 @@ class Question2 extends Controller
     public function getresult(Request $request)
     {
 
-        $i=1;
+
         $name = $request->input('name');
         $age = $request->input('age');
         $key = $request->input('key');
