@@ -67,7 +67,7 @@ a) front-end
             }
            
                 $string .= $step;
-      
+    
         }
 
         return response()->json(['result' => $string]);
