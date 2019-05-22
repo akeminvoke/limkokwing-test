@@ -100,8 +100,8 @@ a, a:hover, a:focus {
     display: block;
 }
 #sidebar ul li a:hover {
-    color: #7386D5;
-    background: #fff;
+    color: white;
+    background: darkslateblue;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
@@ -126,6 +126,7 @@ ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
     background: #6d7fcc;
+    color: white;
 }
 
 ul.CTAs {
@@ -226,6 +227,59 @@ a.article, a.article:hover {
     }
     #sidebarCollapse.active span:last-of-type {
         transform: rotate(-45deg) translate(1px, -1px);
+    }
+
+
+
+
+    .row {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+        margin-top: 51px;
+    }
+
+    .full-height {
+        height: 100vh;
+    }
+
+    p {
+        left: 248px;
+        bottom: 35rem;
+        position: absolute;
+    }
+
+    .flex-center {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .position-ref {
+        position: relative;
+    }
+
+    .top-right {
+        position: absolute;
+        right: 10px;
+        top: 18px;
+    }
+
+    .content {
+        text-align: center;
+    }
+
+    .title {
+        font-size: 84px;
+    }
+
+
+
+    .m-b-md {
+        margin-bottom: 30px;
     }
 
 }

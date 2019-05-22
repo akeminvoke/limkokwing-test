@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="{!! asset('css/app.css') !!}">
-    
+
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
@@ -30,27 +30,28 @@
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Akim & the majistret</h3>
+                <h3>interview assessment</h3>
             </div>
 
             <ul class="list-unstyled components">
-                <li>
-                   <a href="#">Portfolio</a>
-               </li>
+
                 <li class="active">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Question</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <ul class="list-unstyled" id="homeSubmenu">
                         <li>
                             <a href="#">Question 1</a>
                         </li>
                         <li>
-                            <a href="#">Question 2</a>
+                            <a href="{!! url('/question2') !!}" >Question 2</a>
                         </li>
                         <li>
                             <a href="#">question 3</a>
                         </li>
+                        <li>
+                            <a href="{!! url('/crud') !!}" >Question 4</a>
+                        </li>
                     </ul>
-                </li> 
+                </li>
                 <!-- <li>
                     <a href="#">About</a>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
@@ -66,10 +67,8 @@
                         </li>
                     </ul>
                 </li> -->
-               
-               <li>
-                   <a href="#">Contact</a>
-               </li>
+
+
             </ul>
         </nav>
 
@@ -141,8 +140,8 @@
                         </form>
                     </div>
                 </div>
-                
-                
+
+
 
             </div>
         </div>
