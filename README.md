@@ -1,4 +1,4 @@
-# limkokwing-test
+# limkokwing-interview test
 This is sample code which are represents the answers of four interview questions. Each question have a module/function  which can be run/test by inserting the value inside the form fields  that has been provided.
 
 ## Quick start
@@ -152,5 +152,98 @@ a) front-end
            ->To find the value of the 'key' I used  'array_slice' function  to select for particular key array. For instace ,in this              case i use an $i as a starting point of the selected array as i would to be selected. Then i put '3' indicate as which                  position that i would like to take into an array.I choose 3 because we have maximum 3 input box for key ,if we have more                 than 3 then we can put more than that. 
            ->I use the same method to structure country and state array.in these case i use country to loop and  use the index to                    access another array.
            ->once everything is done then we retrun  user and address array in json format.
-      
+           -----------------------------------------------------------------------------------------------------------------------
+      Question 4
+       In this part i would like to focus more on crud process ,security ,as well as validation control mechanissm.
+       
+       a)  introduction
+          ->this module consist of create ,read ,update ,and delete function.
+          ->in this function i use laravel resource default methodto handle a variety of actions on the resource. The generated                     controller will already have methods stubbed for each of these actions, including notes informing you of the HTTP verbs and             URIs they handle.
+          ->below is how i define route using resourse method operation 
+             ``````````````````````````````
+             Route::resource('crud','CrudsController');
+             ``````````````````````````````
+             ->if you like to know the detail of every existing route that you have in your project ,you can simply type "php artisan                 route:list". in terminal.
+          
+          front-end validation control 
+           ->for the front end form validation , i used parsley.js in order to control the validation for every single field inside the              form
+           ->the validation also include require , date-format,numeric and phone-number format.
+           ->below is a parsely attribute to be put insde input element for it to work.
+            ``````````````````````````````
+             data-parsley-required 
+             ````````````````````````````
+          back-end validation control
+           ->using a laravel default validation in order to control back-end validation
+           ->we can put this validation inside middle if want to. But in example i put inside the controller so we can easily work on                it. below is how we define validation for particular request.
+           ``````````````````````````````````````````````
+           
+        $request->validate([
+            'student_name'    =>  'required',
+            'date_of_birth'           =>  'required|date',
+            'nationality'     =>  'required',
+            'phone'           =>  'required',
+            'image'           =>  'required|image|max:2048'
+        ]);
+        ```````````````````````````````````````````````````
+        create method
+        -> once we the request has been validate from the front as well as the back-end now its turn for the create method to take over            the process.
+        ->to save it into the table its good to have a model for a particular table first.in this case i neame the model 'crud' and use            this model to do crud operation.
+        - > below is how do i delcare crud model and use it to save data.
+        ``````````````````````````````````````````````````````````````````
+        use App\Students;
+          public function store(Request $request)
+    {
+        $request->validate([
+            'student_name'    =>  'required',
+            'date_of_birth'           =>  'required|date',
+            'nationality'     =>  'required',
+            'phone'           =>  'required',
+            'image'           =>  'required|image|max:2048'
+        ]);
 
+        $image = $request->file('image');
+
+        $new_name = rand() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('images'), $new_name);
+        $form_data = array(
+            'student_name'     =>         $request->student_name,
+            'date_of_birth'    =>         $request->date_of_birth,
+            'nationality'      =>         $request->nationality,
+            'phone'            =>         $request->phone,
+            'image'            =>         $new_name
+        );
+//dd( $form_data);
+        Students::create($form_data);
+
+        return redirect('crud')->with('success', 'Data Added successfully.');
+    }
+    ```````````````````````````````````````````````````````````````````````````````````````````````````````
+    update operation
+    ->Same goes to update operation ,we need to make a validation first then pass it to the controller to update selected row.
+    ->to update for particular data we need to use method post or patch and we need to pass an ID that represent which row that would         like to update.below is the example of how we define a route inside form element .
+    ``````````````````````````````````````````````````````````````````````````````````````````````````
+    <form	method="post" action="{{ route('crud.update', $data->id) }}" enctype="multipart/form-data">
+    ``````````````````````````````````````````````````````````````````````````````````````````````````
+    Delete operation
+    ->Delete operation use a GeT method.
+    ->in this case we use soft delete approach which mean we are not really delete it but we mark a date inside deleted at column.
+    -below is how we make delete function code
+    ```````````````````````````````````````````````````````````````````````````````````````````````````````
+      public function destroy($id)
+    {
+        $data = Students::findOrFail($id);
+        $data->delete();
+        return redirect('crud')->with('success', 'Data is successfully deleted');
+    }
+    ```````````````````````````````````````````````````````````````````````````````````````````````````````````````
+    
+    security aspect.
+   
+   CSRF
+    -> In laravel they already provide CSRF middleware
+    
+    
+    
+        
+        
+             
