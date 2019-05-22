@@ -8,27 +8,79 @@ To start with this project
 - `git clone <this project git link. Copy from above>`
 - `open up the terminal/cmd`
 - `go to application root folder`
-- `type composer update
-- `onece it done ,open env file and put your database name,username ,and password then at the terminal run "php artisan migrate" and this will
-    create a few table which has been define at migration file ` 
+- `type composer update`
+- `once it done ,open env file and put your database name,username ,and password then at the terminal run "php artisan migrate" and    this will create a few table which has been define at migration file ` 
 
 ## Documentation
-### Question 1
-To start using reducer, follow the steps below
+### Question 1 Technical explanation
 
-1) Create a file and make sure the name is relatable to what the reducer's job
+below are the explanation of how the sample code for the question 1 work 
 
-2) Create an initial_state const at the top. Ie:
+a) front-end
+   ->this module use ajax feature in order send a request to the back-end.
+   ````
+    $("#question-1").submit(function(e){
+        e.preventDefault();
+        var data = $("#question-1").serialize();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'POST',
+            url: '{{route('question1')}}',
+            method: 'POST',
+            data:data,
+            dataType: "json",
+            success:function(data){
+               console.log(data)
+                    $("#ans").html(data.result);
+            }
+        });
+    });
+    ````
+    ->this ajax can be found in question1.blade.php
+    -> as you can see we are using CSRF token the purpose is it will use user-specific token in all form submissions and side-effect        URLs to prevent Cross-Site Request Forgeries
+    -> we are using the method 'POST' and send the request with json type
+    -> success property(which is apart of ajax property) will receive a respons from the api and allocate those repons back into    selected div. in this case we allocatate the anwser in  ' $("#ans").html(data.result)';
+    
+    b) back-end
+      ->function for this module can be found in Question1 Controller.
+      -> all the request declare inside  $a for variable A , $b for variable B, and $c for variable C
+      ->below is structure of the function
+      ````````````````````````````````````
+      public function getresult(Request $request)
+    {
+        $a= $request->var_a;
+        $b= $request->var_b;
+        $c= $request->var_c;
 
-````
-      const INITIAL_STATE = {
-          a = "", // String
-          b = {}, // Object
-          c = [], // Array
-          d = 0, // Number
-          e = false, // Boolean
+        $range=range('A', 'Z');
+        $step = 0;
+        $t=0;
+
+        $string = '';
+        for($step=0;$step<= $c;$step += $b){
+
+            if($step%$a == 0){
+                $string .= $range[$t];
+                $t++;
+            }
+           
+                $string .= $step;
+      
+        }
+
+        return response()->json(['result' => $string]);
     }
-````
+}
+      ````````````````````````````````````
+      ->$range is range of alphabet ,we use this variable as a indicator to loop the process
+      ->$step is variable that we use as a started and the end point of the looping process. It value also will be use to devide by the   variable $a  and this will determine whether the remainder is 0 or higher.
+      -> if the remainder is 0 then we replace  $t with a string/alphabet  to it current position of $string starting from A-Z.
+      
+       ->if the remainder is higher than 0 then we put $step value which is number into  it current position of $string.
+       ->lastly we will return the result in json format  back to the front-end.
+     
 
 3) Pass the initial_state to the reducer function arguments. Make sure also pass an action argument to accept action from dispatch function ie:
 
