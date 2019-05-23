@@ -47,7 +47,7 @@ a) front-end
       ->function for this module can be found in Question1 Controller.
       -> all the request must be declare first. In this case i declare request value  inside  $a for variable A , $b for variable B,             and $c for variable C.
       ->below is how does the function look like
-      `````````````````````````````````````````````````````````````````
+      ``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
      public function getresult(Request $request)
     {
         $a= $request->var_a;
@@ -89,7 +89,7 @@ a) front-end
        a) Front -end
          ->for the front-end part I provide a scalable input fields which giving an option for user to add the details as many as they            like.
          ->below is the example of sample code that make add input field feature work
-       ``````````````````````````````````````````````````````````````````````````````````````
+       `````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
         $(function() {
         var scntDiv = $('#populate');
          i = $('#populate').find('#blue').size() + 1;
@@ -112,7 +112,7 @@ a) front-end
        ````````````````````````````````````````````````````````````````````````````````````````
      -> var i is global variable that we use to access in " $("#addScnt").click(function()" as to indicate users index
       ->once the users click #addScnt div then this function will execute and append a new fields inside #populate div.
-      ->if the user want to remove additional field that already has been added, users can click  remove button and this will heat function rem(s) and this will remove selected field.
+      ->if the user want to remove additional field that already has been added, users can click  remove button and this will heat              function rem(s) and this will remove selected field.
       `````````````````````````````````````````````````````````````````````````````````````````````
        function rem(s){
 
