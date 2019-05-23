@@ -60,7 +60,7 @@ a) front-end
         
         $string[] = '';
         for($step=0;$step<= $c;$step += $b){
-            if(in_array("Z", $string)){
+            if(end($string)){
                 $t = 0;
             }
             if($step%$a == 0){
@@ -76,7 +76,7 @@ a) front-end
 }
       ````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
        ->$range  variable is range of alphabet, we use this variable as a indicator to loop the process
-       ->for the first the step of the loop it will check if the character "Z" is exist in array or not.IF TRUE then we set the $t to              zero .this will give $range value start  from A again.
+       ->for the first the step of the loop it will check if the character "Z" is exist at the end of array index or not.IF TRUE then            we set the $t to zero .this will give $range value start  from A again.
        ->$step is a variable that we use as a starting and the end point of the looping process. This value also will be use to be              devide by the variable of $a  and this will determine whether the remainder is 0 or higher.
        ->If the remainder is 0 then we replace  $string with a $t which starting from A-Z.
        ->If the remainder is higher than 0 then we put $step value into it current position of $string which sitring.
