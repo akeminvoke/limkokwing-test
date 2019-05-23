@@ -155,6 +155,12 @@ a) front-end
            ->I use the same method to structure country and state array.in these case i use country to loop and  use the index to                    access another array.
            ->once everything is done then we retrun  user and address array in json format.
            -----------------------------------------------------------------------------------------------------------------------
+           question 3
+           -> answer for question 3 as below
+           -> "select a.name,c.freq  from  clients a inner join (select b.user_id,count(*) as freq from orders b group by  b.user_id)c
+              on a.id = c.user_id"
+           
+           -----------------------------------------------------------------------------------------------------------------------
       Question 4
        In this part i would like to focus more on crud process ,security ,as well as validation control mechanissm.
        
