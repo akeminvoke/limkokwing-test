@@ -1,5 +1,5 @@
 # limkokwing-interview test
-This is sample code which are represents the answers of four interview questions. Each question have a module/function  which can be run/test by inserting the value inside the form fields  that has been provided.
+This is sample code which consist of four interview questions. Each question have a module/function  which can be run/test by inserting the value inside the form fields  that has been provided.
 
 ## Quick start
 
